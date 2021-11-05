@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Webamp IPFS</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0"
+    />
+
+    <!-- OPEN GRAPH: Start -->
+    <!-- Search Engine -->
+    <meta name="description" content="Webamp IPFS media player." />
+    <meta name="image" content="https://ipfs-client.netlify.app" />
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="IPFS Client" />
+    <meta itemprop="description" content="Webamp IPFS media player." />
+    <meta itemprop="image" content="https://ipfs-client.netlify.app" />
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="IPFS Client" />
+    <meta name="og:description" content="Webamp IPFS media player." />
+    <meta name="og:image" content="https://ipfs-client.netlify.app/logo.png" />
+    <meta name="og:url" content="https://ipfs-client.netlify.app" />
+    <meta name="og:site_name" content="IPFS Client" />
+    <meta name="og:type" content="website" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ipfs-client.netlify.app" />
+    <meta property="twitter:title" content="IPFS Client" />
+    <meta
+      property="twitter:description"
+      content="Webamp IPFS media player."
+    />
+    <meta
+      property="twitter:image"
+      content="https://ipfs-client.netlify.app/logo.png"
+    />
+    <!-- OPEN GRAPH: End -->
+
+    <!-- Fonts: Start -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Fonts: End -->
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/index.css">
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="app">
+      <div id="title">Webamp IPFS</div>
+      <div id="loading"></div>
+      <div id="input-container">
+        <input
+          id="cid"
+          type="text"
+          placeholder="Paste IPFS CID here / AKA content hash"
+          autofocus
+        />
+      </div>
+
+      <div id="container">
+        <div id="content">
+          <div id="winamp-container"></div>
+        </div>
+        <div id="iframe-container">
+          <iframe id="inline-content" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+    
+    <script src="js/index.js" type="module"></script>
+  </body>
+</html>

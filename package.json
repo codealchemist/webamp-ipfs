@@ -1,0 +1,32 @@
+{
+  "name": "webamp-ipfs",
+  "version": "1.0.0",
+  "description": "Webamp + ipfs",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html; cp _redirects dist"
+  },
+  "keywords": [
+    "webamp",
+    "ipfs",
+    "music",
+    "player"
+  ],
+  "author": "Alberto Miranda",
+  "license": "ISC",
+  "dependencies": {
+    "ipfs": "^0.59.1",
+    "ipfs-core": "^0.11.1",
+    "mime-types": "^2.1.33",
+    "multiformats": "^9.4.10",
+    "webamp": "^1.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "parcel": "^2.0.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ]
+}

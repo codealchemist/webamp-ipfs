@@ -1,0 +1,91 @@
+:focus {
+  outline: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  background: #222;
+  overflow: hidden;
+  color: #149bcc;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  font-size: 15vh;
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: flex-end;
+  justify-content: center;
+  top: 0;
+  color: #149bcc;
+  z-index: -1;
+  padding-bottom: calc(2vw + 50px);
+}
+
+#input-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 2vw;
+  position: absolute;
+  top: 0;
+}
+
+#cid {
+  height: 50px;
+  width: 100%;
+  border: 0;
+  padding: 10px;
+  font: 1.5em 'Montserrat', sans-serif;
+  border-radius: 5px;
+}
+
+#webamp {
+  margin-top: 10px;
+}
+
+#loading {
+  width: 0vw;
+  height: 2px;
+  background: #91e695;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: all 500ms;
+}
+
+#loading.init::before {
+  content: 'LOADING';
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 0.8em;
+  color: #91e695;
+  text-align: center;
+  padding: 5px;
+}
+
+@media (orientation: portrait) {
+  #title {
+    font-size: 15vw;
+  }
+}
