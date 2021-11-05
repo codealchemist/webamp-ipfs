@@ -9,8 +9,8 @@ console.log('Wait for DOM...')
 document.addEventListener('DOMContentLoaded', init)
 
 // Check if Winamp is supported in this browser
-if(!Webamp.browserIsSupported()) {
-  alert("Oh no! Webamp does not work!")
+if (!Webamp.browserIsSupported()) {
+  alert('Oh no! Webamp does not work!')
   throw new Error("What's the point of anything?")
 }
 const webamp = new Webamp({
@@ -31,14 +31,12 @@ const webamp = new Webamp({
       position: { x: 0, y: 0 },
       size: [0, 4]
     },
-    milkdrop: {
-
-    }
+    milkdrop: {}
   }
 })
 window.webamp = webamp
 
-async function init () {
+async function init() {
   const ipfs = await IPFS.create()
   const id = await ipfs.id()
   console.log('NODE ID', id)
@@ -68,7 +66,7 @@ async function init () {
     resetView()
   })
 
-  function openContent ({ url, name, size }) {
+  function openContent({ url, name, size }) {
     console.log('Open content', window.innerWidth, inlineContentStartWidth)
     // Open in new window.
     if (window.innerWidth < inlineContentStartWidth) {
@@ -86,22 +84,22 @@ async function init () {
     showInlineContent()
   }
 
-  function showInlineContent () {
+  function showInlineContent() {
     $container.classList.add('inline-content')
   }
 
-  function hideInlineContent () {
+  function hideInlineContent() {
     $container.classList.remove('inline-content')
   }
 
-  function showContentView () {
+  function showContentView() {
     $content.classList.add('show')
     $content.classList.remove('hide')
     $inputContainer.classList.add('hide')
     $inputContainer.classList.remove('show')
   }
 
-  function resetView () {
+  function resetView() {
     hideInlineContent()
     $content.innerHTML = '' // Clear content.
     $content.classList.add('hide')
@@ -110,11 +108,11 @@ async function init () {
     $inputContainer.classList.remove('hide')
   }
 
-  function setLoading (percentage) {
+  function setLoading(percentage) {
     $loading.style.width = `${percentage}vw`
   }
 
-  function showLoading () {
+  function showLoading() {
     isLoading = true
     loadingTextTimer = setTimeout(() => {
       hiddenLoadingText = false
@@ -123,7 +121,7 @@ async function init () {
     $loading.style.opacity = '1'
   }
 
-  function hideLoading () {
+  function hideLoading() {
     isLoading = false
     $loading.style.opacity = '0'
     setTimeout(() => {
@@ -131,11 +129,19 @@ async function init () {
     }, 500)
   }
 
-  async function load (hash) {
+  function setHistory(hash, partial = false) {
+    window.history.pushState(
+      { content: $content.innerHTML, partial, hash },
+      null,
+      hash
+    )
+  }
+
+  async function load(hash) {
     if (isLoading) hideLoading()
 
     console.log(`Loading ${hash}...`)
-    const cid =  CID.parse(hash)
+    const cid = CID.parse(hash)
     const node = await ipfs.dag.get(cid)
     console.log('NODE', node)
     const { Links } = node.value
@@ -151,10 +157,12 @@ async function init () {
         console.log('GOT FILE', fileObj)
         if (getFileType(name) === 'audio') {
           console.log('Adding audio track...')
-          webamp.appendTracks([{
-            url,
-            defaultName: name
-          }])
+          webamp.appendTracks([
+            {
+              url,
+              defaultName: name
+            }
+          ])
         }
       } else {
         // Dir.
@@ -173,10 +181,11 @@ async function init () {
       }
     }
     hideLoading()
+    setHistory(hash)
   }
 
   // Load files and dirs.
-  async function * loadItems (links) {
+  async function* loadItems(links) {
     while (links.length) {
       const link = links.pop()
       // console.log('LINK', link)
@@ -187,7 +196,7 @@ async function init () {
     }
   }
 
-  async function loadData (cid, name) {
+  async function loadData(cid, name) {
     try {
       const stream = await ipfs.cat(cid)
       const chunks = []
