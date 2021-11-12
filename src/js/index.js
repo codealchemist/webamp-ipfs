@@ -4,53 +4,53 @@ import mime from 'mime-types'
 import Webamp from 'webamp'
 import keys from './util/keys'
 import getFileType from './util/get-file-type'
+import getRandomImage from './util/get-random-image'
 
-console.log('Wait for DOM...')
-document.addEventListener('DOMContentLoaded', init)
+// document.addEventListener('DOMContentLoaded', init)
 
 // Check if Winamp is supported in this browser
 if (!Webamp.browserIsSupported()) {
   alert('Oh no! Webamp does not work!')
   throw new Error("What's the point of anything?")
 }
+
+const webampWindows = {
+  main: {
+    position: { x: -275, y: 0 }
+  },
+  equalizer: {
+    open: false,
+    hidden: false,
+    shade: false,
+    position: { x: -275, y: 116 }
+  },
+  playlist: {
+    open: true,
+    doubled: true,
+    position: { x: 0, y: 0 },
+    size: [0, 4]
+  }
+}
 const webamp = new Webamp({
   enableHotkeys: true,
   __initialWindowLayout: {
-    main: {
-      position: { x: -275, y: 0 }
-    },
-    equalizer: {
-      open: false,
-      hidden: false,
-      shade: false,
-      position: { x: -275, y: 116 }
-    },
-    playlist: {
-      open: true,
-      doubled: true,
-      position: { x: 0, y: 0 },
-      size: [0, 4]
-    },
-    milkdrop: {}
+    ...webampWindows
   }
 })
-window.webamp = webamp
 
-async function init() {
+async function init () {
   const ipfs = await IPFS.create()
   const id = await ipfs.id()
   console.log('NODE ID', id)
+  const $background = document.getElementById('background')
   const $input = document.getElementById('cid')
-  const $inputContainer = document.getElementById('input-container')
-  const $container = document.getElementById('container')
-  const $content = document.getElementById('content')
-  const $iframe = document.getElementById('inline-content')
   const $loading = document.getElementById('loading')
   let hiddenLoadingText = true
   let loadingTextTimer
-  const inlineContentStartWidth = 1024 // Start displaying inline content at 800px
   let isLoading = false
   let loadingHash
+
+  setBackground()
 
   // Render Webamp.
   webamp.renderWhenReady(document.getElementById('winamp-container'))
@@ -58,61 +58,19 @@ async function init() {
   keys('#cid', 'Enter', () => {
     const cid = $input.value
     if (!cid) return
-    showContentView()
     load(cid)
   })
 
-  keys('body', 'Escape', () => {
-    resetView()
-  })
-
-  function openContent({ url, name, size }) {
-    console.log('Open content', window.innerWidth, inlineContentStartWidth)
-    // Open in new window.
-    if (window.innerWidth < inlineContentStartWidth) {
-      console.log('Open URL in new window')
-      window.open(url)
-      return
-    }
-
-    // Display inline content.
-    $iframe.onload = () => {
-      const $iframeBody = $iframe.contentWindow.document.querySelector('body')
-      $iframeBody.style.color = '#ddd'
-    }
-    $iframe.src = url
-    showInlineContent()
+  function setBackground () {
+    const img = getRandomImage()
+    $background.style.backgroundImage = `url(${img})`
   }
 
-  function showInlineContent() {
-    $container.classList.add('inline-content')
-  }
-
-  function hideInlineContent() {
-    $container.classList.remove('inline-content')
-  }
-
-  function showContentView() {
-    $content.classList.add('show')
-    $content.classList.remove('hide')
-    $inputContainer.classList.add('hide')
-    $inputContainer.classList.remove('show')
-  }
-
-  function resetView() {
-    hideInlineContent()
-    $content.innerHTML = '' // Clear content.
-    $content.classList.add('hide')
-    $content.classList.remove('show')
-    $inputContainer.classList.add('show')
-    $inputContainer.classList.remove('hide')
-  }
-
-  function setLoading(percentage) {
+  function setLoading (percentage) {
     $loading.style.width = `${percentage}vw`
   }
 
-  function showLoading() {
+  function showLoading () {
     isLoading = true
     loadingTextTimer = setTimeout(() => {
       hiddenLoadingText = false
@@ -121,7 +79,7 @@ async function init() {
     $loading.style.opacity = '1'
   }
 
-  function hideLoading() {
+  function hideLoading () {
     isLoading = false
     $loading.style.opacity = '0'
     setTimeout(() => {
@@ -129,15 +87,11 @@ async function init() {
     }, 500)
   }
 
-  function setHistory(hash, partial = false) {
-    window.history.pushState(
-      { content: $content.innerHTML, partial, hash },
-      null,
-      hash
-    )
+  function setHistory (hash, partial = false) {
+    window.history.pushState({}, null, hash)
   }
 
-  async function load(hash) {
+  async function load (hash) {
     if (isLoading) hideLoading()
 
     console.log(`Loading ${hash}...`)
@@ -185,7 +139,7 @@ async function init() {
   }
 
   // Load files and dirs.
-  async function* loadItems(links) {
+  async function * loadItems (links) {
     while (links.length) {
       const link = links.pop()
       // console.log('LINK', link)
@@ -196,7 +150,7 @@ async function init() {
     }
   }
 
-  async function loadData(cid, name) {
+  async function loadData (cid, name) {
     try {
       const stream = await ipfs.cat(cid)
       const chunks = []
@@ -229,7 +183,8 @@ async function init() {
   const hash = window.location.pathname.replace('/', '')
   if (hash) {
     console.log(`Auto loading hash: ${hash}`)
-    showContentView()
     load(hash)
   }
 }
+
+init()

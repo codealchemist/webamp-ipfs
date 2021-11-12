@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Webamp IPFS</title>
 
     <meta
@@ -13,29 +13,35 @@
     <!-- OPEN GRAPH: Start -->
     <!-- Search Engine -->
     <meta name="description" content="Webamp IPFS media player." />
-    <meta name="image" content="https://ipfs-client.netlify.app" />
+    <meta name="image" content="https://webamp-ipfs.netlify.app" />
     <!-- Schema.org for Google -->
-    <meta itemprop="name" content="IPFS Client" />
-    <meta itemprop="description" content="Webamp IPFS media player." />
-    <meta itemprop="image" content="https://ipfs-client.netlify.app" />
+    <meta itemprop="name" content="Webamp IPFS media player" />
+    <meta
+      itemprop="description"
+      content="Play audio files from IPFS in Webamp"
+    />
+    <meta itemprop="image" content="https://webamp-ipfs.netlify.app" />
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="IPFS Client" />
-    <meta name="og:description" content="Webamp IPFS media player." />
-    <meta name="og:image" content="https://ipfs-client.netlify.app/logo.png" />
-    <meta name="og:url" content="https://ipfs-client.netlify.app" />
-    <meta name="og:site_name" content="IPFS Client" />
+    <meta name="og:title" content="Webamp IPFS media player" />
+    <meta
+      name="og:description"
+      content="Play audio files from IPFS in Webamp"
+    />
+    <meta name="og:image" content="https://webamp-ipfs.netlify.app/logo.png" />
+    <meta name="og:url" content="https://webamp-ipfs.netlify.app" />
+    <meta name="og:site_name" content="Webamp IPFS media player" />
     <meta name="og:type" content="website" />
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ipfs-client.netlify.app" />
-    <meta property="twitter:title" content="IPFS Client" />
+    <meta property="twitter:url" content="https://webamp-ipfs.netlify.app" />
+    <meta property="twitter:title" content="Webamp IPFS media player" />
     <meta
       property="twitter:description"
-      content="Webamp IPFS media player."
+      content="Play audio files from IPFS in Webamp"
     />
     <meta
       property="twitter:image"
-      content="https://ipfs-client.netlify.app/logo.png"
+      content="https://webamp-ipfs.netlify.app/logo.png"
     />
     <!-- OPEN GRAPH: End -->
 
@@ -47,23 +53,28 @@
     />
     <!-- Fonts: End -->
 
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./css/index.css">
+    <meta name="description" content="Play audio files from IPFS in Webamp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
     <![endif]-->
 
     <div id="app">
-      <div id="title">Webamp IPFS</div>
       <div id="loading"></div>
+      <a id="ipfs-logo" href="https://ipfs.io" target="_blank">
+        <img src="../public/ipfs-logo.png" />
+      </a>
       <div id="input-container">
         <input
           id="cid"
           type="text"
-          placeholder="Paste IPFS CID here / AKA content hash"
+          placeholder="Paste IPFS CID here"
           autofocus
         />
       </div>
@@ -77,7 +88,9 @@
         </div>
       </div>
     </div>
-    
+
+    <div id="background"></div>
+
     <script src="js/index.js" type="module"></script>
   </body>
 </html>

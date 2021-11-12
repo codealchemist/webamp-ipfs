@@ -2,17 +2,12 @@
   "name": "webamp-ipfs",
   "version": "1.0.0",
   "description": "Webamp + ipfs",
-  "main": "index.js",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html; cp _redirects dist"
+    "copy-public": "mkdir -p dist && cp -r public/* dist && echo public copied",
+    "start": "npm run copy-public && parcel src/index.html",
+    "build": "npm run copy-public && parcel build --no-source-maps src/index.html"
   },
-  "keywords": [
-    "webamp",
-    "ipfs",
-    "music",
-    "player"
-  ],
+  "keywords": ["webamp", "ipfs", "music", "player"],
   "author": "Alberto Miranda",
   "license": "ISC",
   "dependencies": {
@@ -26,7 +21,5 @@
     "@babel/core": "^7.16.0",
     "parcel": "^2.0.0"
   },
-  "browserslist": [
-    "last 2 Chrome versions"
-  ]
+  "browserslist": ["last 2 Chrome versions"]
 }
