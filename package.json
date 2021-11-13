@@ -5,7 +5,7 @@
   "scripts": {
     "copy-public": "mkdir -p dist && cp -r public/* dist && echo public copied",
     "start": "npm run copy-public && parcel src/index.html",
-    "build": "npm run copy-public && parcel build --no-source-maps src/index.html"
+    "build": "rm -rf dist; npm run copy-public && parcel build --no-source-maps src/index.html"
   },
   "keywords": ["webamp", "ipfs", "music", "player"],
   "author": "Alberto Miranda",

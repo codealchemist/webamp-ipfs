@@ -5,6 +5,7 @@ import Webamp from 'webamp'
 import keys from './util/keys'
 import getFileType from './util/get-file-type'
 import getRandomImage from './util/get-random-image'
+const baseUrl = `${window.location.origin}${window.location.pathname}`
 
 // document.addEventListener('DOMContentLoaded', init)
 
@@ -87,8 +88,8 @@ async function init () {
     }, 500)
   }
 
-  function setHistory (hash, partial = false) {
-    window.history.pushState({}, null, hash)
+  function setHash (hash, partial = false) {
+    window.location.href = `${baseUrl}#${hash}`
   }
 
   async function load (hash) {
@@ -135,7 +136,7 @@ async function init () {
       }
     }
     hideLoading()
-    setHistory(hash)
+    setHash(hash)
   }
 
   // Load files and dirs.
@@ -180,7 +181,7 @@ async function init () {
   }
 
   // Read hash from URL.
-  const hash = window.location.pathname.replace('/', '')
+  const hash = window.location.hash.replace('#', '')
   if (hash) {
     console.log(`Auto loading hash: ${hash}`)
     load(hash)
