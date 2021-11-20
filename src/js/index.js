@@ -49,6 +49,7 @@ async function init () {
   let loadingTextTimer
   let isLoading = false
   let loadingHash
+  let alreadySetIpfsBackground = false
 
   setBackground()
 
@@ -61,8 +62,8 @@ async function init () {
     load(cid)
   })
 
-  function setBackground () {
-    const img = getRandomImage()
+  function setBackground (img) {
+    img = img || getRandomImage()
     $background.style.backgroundImage = `url(${img})`
   }
 
@@ -109,6 +110,8 @@ async function init () {
       if (url) {
         // File.
         console.log('GOT FILE', fileObj)
+
+        // Audio file.
         if (getFileType(name) === 'audio') {
           console.log('Adding audio track...')
           webamp.appendTracks([
@@ -117,6 +120,13 @@ async function init () {
               defaultName: name
             }
           ])
+        }
+
+        // Image file.
+        if (getFileType(name) === 'image' && !alreadySetIpfsBackground) {
+          console.log('Using background from IPFS', fileObj)
+          setBackground(url)
+          alreadySetIpfsBackground = true
         }
       } else {
         // Dir.
