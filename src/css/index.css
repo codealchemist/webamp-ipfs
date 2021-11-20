@@ -84,6 +84,7 @@ body {
   background-size: cover;
   background-position: center;
   z-index: -10;
+  transition: all 1s ease-in-out;
 }
 
 #loading {
